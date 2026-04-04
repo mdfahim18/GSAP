@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P 1</title>
+
+    <style>
+      #box1 {
+        width: 50px;
+        height: 50px;
+        background-color: crimson;
+      }
+
+      #box2 {
+        width: 50px;
+        height: 50px;
+        background-color: cyan;
+      }
+
+      #box3 {
+        width: 50px;
+        height: 50px;
+        background-color: rgb(21, 255, 0);
+      }
+
+      #box4 {
+        width: 50px;
+        height: 50px;
+        background-color: rgb(221, 255, 0);
+      }
+
+      #box5 {
+        width: 50px;
+        height: 50px;
+        background-color: rgb(195, 0, 255);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <div id="box3"></div>
+    <div id="box4"></div>
+    <div id="box5"></div>
+
+    <h1>I am first h1</h1>
+    <h1>I am second h1</h1>
+    <h1>I am third h1</h1>
+
+    <h2>I am first h2</h2>
+    <h2>I am second h2</h2>
+    <h2>I am third h2</h2>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      gsap.to('#box1', {
+        x: 1000,
+        duration: 4,
+        delay: 1,
+        rotation: 360,
+        backgroundColor: 'green',
+        borderRadius: '50%',
+        scale: 1.5,
+        yoyo: true,
+        repeat: 2,
+      });
+
+      gsap.from('#box2', {
+        x: 1000,
+        duration: 4,
+        delay: 1,
+        repeat: 3,
+      });
+
+      gsap.from('h1', {
+        opacity: 0,
+        duration: 2,
+        y: 40,
+        stagger: 1,
+      });
+
+      gsap.to('h2', {
+        opacity: 0,
+        duration: 2,
+        y: 40,
+        stagger: 1,
+      });
+
+      const tl = gsap.timeline();
+
+      tl.to('#box3', {
+        x: 1300,
+        duration: 1.5,
+      });
+      tl.to('#box4', {
+        x: 1300,
+        duration: 1.5,
+      });
+      tl.to('#box5', {
+        x: 1300,
+        duration: 1.5,
+      });
+
+      function abc() {
+        console.log('hello');
+        console.log('hello');
+        console.log('hello');
+        console.log('hello');
+        console.log('hello');
+        console.log('hello');
+        console.log('hello');
+        console.log('hello');
+        console.log('hello');
+        console.log('hello');
+      }
+      gsap.registerPlugin(SplitText);
+
+      document.fonts.ready.then(() => {
+        let text = document.querySelector('.headline');
+        gsap.set(text, { opacity: 1 });
+        let mySplitText = SplitText.create(text, {
+          type: 'chars, words',
+          charsClass: 'char',
+        });
+        let chars = mySplitText.chars;
+
+        document.querySelector('button').addEventListener('click', (e) => {
+          if (!text.isSplit) {
+            mySplitText.split({
+              type: 'chars, words',
+              charsClass: 'char',
+            });
+          }
+          gsap.from(chars, {
+            duration: 1,
+            opacity: 0,
+            scale: 0,
+            y: 80,
+            rotationX: 180,
+            transformOrigin: '0% 50% -50',
+            ease: 'back',
+            stagger: 0.05,
+            onComplete: () => {
+              mySplitText.revert();
+              text.removeAttribute('aria-hidden');
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

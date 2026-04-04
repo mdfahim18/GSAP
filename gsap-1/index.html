@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="title">Hello GSAP</h1>
+    <button id="btn">Click</button>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+
+    <script>
+      gsap.from('#title', {
+        y: -100,
+        opacity: 0,
+        duration: 1,
+      });
+
+      document.getElementById('btn').addEventListener('click', () => {
+        gsap.to('#btn', {
+          scale: 1.5,
+          duration: 0.3,
+          yoyo: true,
+          repeat: 1,
+        });
+      });
+    </script>
+  </body>
+</html>
