@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Split With Trigger</title>
+
+    <style>
+      @font-face {
+        font-display: block;
+        font-family: Mori;
+        font-style: normal;
+        font-weight: 900;
+        src: url(https://assets.codepen.io/16327/PPMori-SemiBold.woff)
+          format('woff');
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-family: 'Mori';
+        /*   background: #0e100f; */
+        background:
+          radial-gradient(
+            129% 99% at 112% 85%,
+            rgb(223, 220, 255) 20%,
+            rgb(166, 158, 255) 90%
+          ),
+          url('https://assets.codepen.io/16327/noise-e82662fe.png');
+        background-blend-mode: color-dodge;
+      }
+
+      .container {
+        width: 90vw;
+        margin-top: 40vh;
+      }
+
+      .split {
+        opacity: 0;
+        text-align: center;
+        color: rgb(14, 16, 15);
+        font-size: 2rem;
+        will-change: transform;
+        color: #0e100f;
+      }
+
+      .split * {
+        will-change: transform;
+      }
+
+      .spacer {
+        height: 40vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="spacer"></div>
+    <div class="container">
+      <h2 class="split">
+        This demo shows the correct way to set up your SplitText line animations
+        with ScrollTrigger. It's important to return your animation inside the
+        onSplit callback and set autoSplit to true so that your lines resplit
+        and your animation gets recreated if the browser resizes.
+      </h2>
+    </div>
+    <div class="container">
+      <h2 class="split">
+        This demo shows the correct way to set up your SplitText line animations
+        with ScrollTrigger. It's important to return your animation inside the
+        onSplit callback and set autoSplit to true so that your lines resplit
+        and your animation gets recreated if the browser resizes.
+      </h2>
+    </div>
+    <div class="container">
+      <h2 class="split">
+        This demo shows the correct way to set up your SplitText line animations
+        with ScrollTrigger. It's important to return your animation inside the
+        onSplit callback and set autoSplit to true so that your lines resplit
+        and your animation gets recreated if the browser resizes.
+      </h2>
+    </div>
+
+    <div class="spacer"></div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"
+      integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"
+      integrity="sha512-wOeEC+9qERAzhliwBFPDb6t8TiFFxdxG8vhK/Ygs7TuC44bpg8pg/X2/U/u+0X4fK05wb9id1EIipnF02+CFQw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      gsap.set('.split', { opacity: 1 });
+
+      document.fonts.ready.then(() => {
+        let containers = gsap.utils.toArray('.container');
+        console.log(containers);
+
+        containers.forEach((container) => {
+          let text = container.querySelector('.split');
+          let animation;
+
+          console.log(container);
+
+          SplitText.create(text, {
+            type: 'words, lines',
+            mask: 'lines',
+            linesClass: 'lines',
+            autoSplit: true,
+            onSplit: (instance) => {
+              console.log(instance);
+              return gsap.from(instance.lines, {
+                yPercent: 120,
+                stagger: 0.1,
+                scrollTrigger: {
+                  trigger: container,
+                  markers: true,
+                  scrub: 2,
+                  start: 'clamp(top center)',
+                  end: 'clamp(bottom center)',
+                },
+              });
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

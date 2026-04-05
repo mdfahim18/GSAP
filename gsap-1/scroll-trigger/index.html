@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll Trigger</title>
+
+    <style>
+      body {
+        width: 100%;
+        height: 100%;
+      }
+      #page1 {
+        width: 100%;
+        height: 100vh;
+        background-color: lightblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #page2 {
+        width: 100%;
+        height: 100vh;
+        background-color: rgb(73, 168, 199);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #page3 {
+        width: 100%;
+        height: 100vh;
+        background-color: rgb(2, 115, 153);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #box {
+        width: 100px;
+        height: 100px;
+        background-color: crimson;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <section id="page1">
+      <div id="box"></div>
+    </section>
+    <section id="page2">
+      <div id="box"></div>
+    </section>
+    <section id="page3">
+      <div id="box"></div>
+    </section>
+    
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"
+      integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      gsap.from('#page1 #box', {
+        scale: 0,
+        duration: 2,
+        delay: 1,
+        rotation: 360,
+      });
+
+      gsap.from('#page2 #box', {
+        scale: 0,
+        duration: 2,
+        // delay: 1,
+        x: 500,
+        rotation: 360,
+        scrollTrigger: {
+          trigger: '#page2 #box',
+          scroller: 'body',
+          markers: true,
+          start: 'top 50%',
+          // scrub: true,
+          scrub: 2,
+        },
+      });
+
+      gsap.to('#page5 h1', {
+        transform: 'translareX(-150%)',
+        scrollTrigger: {
+          trigger: '#page2',
+        },
+      });
+    </script>
+  </body>
+</html>
