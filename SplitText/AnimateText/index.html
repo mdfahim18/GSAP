@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animate Text</title>
+  </head>
+  <style>
+    html,
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+      background: black;
+    }
+
+    .container {
+      position: relative;
+      width: 90vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      border-radius: 9px;
+    }
+
+    .text {
+      color: #dfdcff;
+      font-size: clamp(2rem, 12rem, 5vw);
+      line-height: 1.2;
+      box-sizing: border-box;
+      padding: 5%;
+      width: 100%;
+      text-align: center;
+      perspective: 500px;
+    }
+
+    .button-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="button-wrapper">
+        <button id="chars" class="button">Characters</button>
+        <button id="words" class="button">Words</button>
+        <button id="lines" class="button">Lines</button>
+      </div>
+      <div class="text">
+        Break apart HTML text into characters, words, and/or lines for easy
+        animation.
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"
+      integrity="sha512-wOeEC+9qERAzhliwBFPDb6t8TiFFxdxG8vhK/Ygs7TuC44bpg8pg/X2/U/u+0X4fK05wb9id1EIipnF02+CFQw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      let split, animation;
+
+      console.log('split', split);
+
+      document.querySelector('#chars').addEventListener('click', () => {
+        animation && animation.revert();
+
+        animation = gsap.from(split.chars, {
+          x: 150,
+          opacity: 0,
+          duration: 0.7,
+          ease: 'power4',
+          stagger: 0.04,
+        });
+
+        console.log(animation);
+      });
+
+      document.querySelector('#words').addEventListener('click', () => {
+        console.log('clicked');
+
+        animation && animation.revert();
+        animation = gsap.from(split.words, {
+          y: -100,
+          opacity: 0,
+          rotation: 'random(-80, 80)',
+          duration: 0.7,
+          ease: 'back',
+          stagger: 0.15,
+        });
+      });
+
+      document.querySelector('#lines').addEventListener('click', () => {
+        animation && animation.revert();
+        animation = gsap.from(split.lines, {
+          rotationX: -100,
+          transformOrigin: '50% 50% -160px',
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power3',
+          stagger: 0.25,
+        });
+      });
+      function setup() {
+        split && split.revert();
+        animation && animation.revert();
+        split = SplitText.create('.text', { type: 'chars,words,lines' });
+      }
+
+      setup();
+    </script>
+  </body>
+</html>
