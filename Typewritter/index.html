@@ -28,29 +28,38 @@
         'Hello, I am building plugins.',
       ];
 
-      const split = SplitText.create('#text', {
-        type: 'chars',
-      });
+      let index = 0;
 
-      gsap.set(split.chars, { opacity: 0 });
-
-      console.log();
-
-      let chars = split.chars;
-
-      console.log(chars);
-
-      chars.forEach((element) => {
-        console.log(element);
-
-        gsap.to(chars, {
-          delay: 1,
-          opacity: 1,
-          duration: 0.05,
-          stagger: 0.05,
-          ease: 'none',
+      function animateText() {
+        const el = document.querySelector('#text');
+        el.textContent = texts[index];
+        let split = SplitText.create('#text', {
+          type: 'chars',
         });
-      });
+
+        gsap.fromTo(
+          split.chars,
+          { opacity: 0 },
+          {
+            opacity: 1,
+            stagger: 0.05,
+            duration: 0.05,
+            ease: 'none',
+            onComplete: () => {
+              setTimeout(() => {
+                split.revert();
+                index = (index + 1) % texts.length;
+                console.log(index);
+                document.querySelector('#text').textContent = texts[index];
+                animateText();
+              }, 1000);
+            },
+          }
+        );
+
+        console.log(split.chars);
+      }
+      animateText();
     </script>
   </body>
 </html>
