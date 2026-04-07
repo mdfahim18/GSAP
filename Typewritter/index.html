@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style></style>
+  <body>
+    <h1 id="text">Hello World</h1>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"
+      integrity="sha512-wOeEC+9qERAzhliwBFPDb6t8TiFFxdxG8vhK/Ygs7TuC44bpg8pg/X2/U/u+0X4fK05wb9id1EIipnF02+CFQw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      const texts = [
+        'Hello, I am learning GSAP.',
+        'Hello, I am learning JavaScript.',
+        'Hello, I am building plugins.',
+      ];
+
+      const split = SplitText.create('#text', {
+        type: 'chars',
+      });
+
+      gsap.set(split.chars, { opacity: 0 });
+
+      console.log();
+
+      let chars = split.chars;
+
+      console.log(chars);
+
+      chars.forEach((element) => {
+        console.log(element);
+
+        gsap.to(chars, {
+          delay: 1,
+          opacity: 1,
+          duration: 0.05,
+          stagger: 0.05,
+          ease: 'none',
+        });
+      });
+    </script>
+  </body>
+</html>

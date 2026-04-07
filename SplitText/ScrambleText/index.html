@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scramble Text</title>
+  </head>
+  <style>
+    html,
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .text {
+      font-family: Franklin Mono;
+      box-sizing: border-box;
+      padding: 10% 5% 5% 5%;
+      width: 100%;
+      height: 300px;
+      background: blue;
+      text-align: center;
+      width: 90vw;
+      max-width: 50ch;
+    }
+
+    .border {
+      outline: grey 2px dashed;
+      outline-offset: 5px;
+      border-radius: 10px;
+    }
+    @media (max-width: 300px) or (max-height: 300px) {
+      .button-wrapper button {
+        padding: 2px;
+        border: none;
+      }
+    }
+  </style>
+  <body>
+    <h1 class="text heading-text">
+      Scramble or unscramble text progressively.
+    </h1>
+    <button id="next" class="button">Next</button>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrambleTextPlugin.min.js"
+      integrity="sha512-EVIYaMR2tIn6veV5jmP0M0DFBSBt5rAhRPsW0zwC9LyPzAIHNeWiZ4B5orgYeWbNq55vIwk8fOKCtTHwiCBvaw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      let blurbs = [
+        'Scramble or unscramble text progressively.',
+        "Use specific chars like 'XO' or use only numbers, UPPERCASE or lowercase.",
+        'Even add a class to the new or old text.',
+      ];
+
+      let curIndex = 0;
+
+      document.querySelector('#next').addEventListener('click', () => {
+        curIndex = (curIndex + 1) % blurbs.length;
+
+        console.log(curIndex);
+
+        gsap.to('.text', {
+          scrambleText: {
+            text: blurbs[curIndex],
+            chars: 'upperAndLowerCase',
+            revealDelay: 0.2,
+            tweenLength: true,
+            newClass: curIndex == 2 ? 'border' : '',
+          },
+          ease: 'power2.inOut',
+          overwrite: 'auto',
+          duration: 4.2,
+        });
+      });
+    </script>
+  </body>
+</html>
