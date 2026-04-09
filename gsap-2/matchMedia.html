@@ -14,7 +14,7 @@
       text-align: center;
       width: 100px;
       height: 100px;
-      /* background-color: red; */
+      background-color: red;
     }
   </style>
   <body>
@@ -36,46 +36,81 @@
       let mm = gsap.matchMedia();
       console.log(mm);
 
-      mm.add('(max-width: 700px)', () => {
-        let tl = gsap.timeline({
-          scrollTrigger: {
-            target: '.box',
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
+      // mm.add('(max-width: 700px)', () => {
+      //   let tl = gsap.timeline({
+      //     scrollTrigger: {
+      //       target: '.box',
+      //       start: 'top bottom',
+      //       end: 'bottom top',
+      //       scrub: true,
+      //     },
+      //   });
 
-        tl.to('.box', {
-          backgroundColor: 'green',
-          rotation: 360,
-          duration: 2,
-          // repeat: 2,
-        }).to('.box', {
-          scale: 2,
-          duration: 1,
-        });
-      });
+      //   tl.to('.box', {
+      //     backgroundColor: 'green',
+      //     rotation: 360,
+      //     duration: 2,
+      //     // repeat: 2,
+      //   }).to('.box', {
+      //     scale: 2,
+      //     duration: 1,
+      //   });
+      // });
 
-      mm.add('(min-width: 701px)', () => {
-        let tl = gsap.timeline({
-          scrollTrigger: {
-            target: '.box',
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
+      // mm.add('(min-width: 701px)', () => {
+      //   let tl = gsap.timeline({
+      //     scrollTrigger: {
+      //       target: '.box',
+      //       start: 'top bottom',
+      //       end: 'bottom top',
+      //       scrub: true,
+      //     },
+      //   });
 
-        tl.to('.box', {
-          backgroundColor: 'blue',
-          rotation: -360,
-          duration: 2,
-          // repeat: 2,
-        }).to('.box', {
-          scale: 2,
-          duration: 1,
+      //   tl.to('.box', {
+      //     backgroundColor: 'blue',
+      //     rotation: -360,
+      //     duration: 2,
+      //     // repeat: 2,
+      //   }).to('.box', {
+      //     scale: 2,
+      //     duration: 1,
+      //   });
+      // });
+
+      // mm.add(
+      //   {
+      //     isMobile: '(max-width: 500px)',
+      //     isDesktop: '(min-width: 501px)',
+      //   },
+      //   (context) => {
+      //     console.log(context);
+
+      //     const { isMobile, isDesktop } = context.conditions;
+
+      //     let duration = context.isReverted ? 0 : 2;
+      //     console.log(context.isReverted);
+
+      //     gsap.to('.box', {
+      //       rotation: isMobile ? -360 : 360,
+      //       duration: duration,
+      //     });
+      //   }
+      // );
+
+      const box = document.querySelector('.box');
+      console.log(box);
+
+      mm.add('(max-width: 700px)', (context) => {
+        context.add('spinTheBox', () => {
+          gsap.to(box, {
+            rotation: 360,
+            ease: 'none',
+            repeat: -1,
+            duration: 1,
+          });
         });
+        box.addEventListener('click', context.spinTheBox);
       });
     </script>
   </body>
