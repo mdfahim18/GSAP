@@ -7,10 +7,10 @@
   </head>
   <style>
     body {
-      height: 200vh;
+      height: 100vh;
     }
     .box {
-      margin-top: 1000px;
+      /* margin-top: 1000px; */
       text-align: center;
       width: 100px;
       height: 100px;
@@ -18,6 +18,7 @@
     }
   </style>
   <body>
+    <input type="checkbox" id="motionToggle" value="false" />
     <div class="box"></div>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
@@ -98,19 +99,46 @@
       //   }
       // );
 
-      const box = document.querySelector('.box');
-      console.log(box);
+      // const box = document.querySelector('.box');
+      // console.log(box);
 
-      mm.add('(max-width: 700px)', (context) => {
-        context.add('spinTheBox', () => {
-          gsap.to(box, {
-            rotation: 360,
-            ease: 'none',
-            repeat: -1,
-            duration: 1,
-          });
+      // mm.add('(max-width: 700px)', (context) => {
+      //   context.add('spinTheBox', () => {
+      //     gsap.to(box, {
+      //       rotation: 360,
+      //       ease: 'none',
+      //       repeat: -1,
+      //       duration: 1,
+      //     });
+      //   });
+      //   box.addEventListener('click', context.spinTheBox);
+
+      //   return () => {
+      //     box.removeEventListener('click', context.spinTheBox);
+      //   };
+      // });
+
+      let reduceMotionCB = document.querySelector('#motionToggle');
+
+      reduceMotionCB.checked = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      reduceMotionCB.addEventListener('change', gsap.matchMediaRefresh);
+      let conditions = {
+        reduceMotion: `(prefers-reduced-motion: reduce)`,
+        safeToAnimate: `(prefers-reduced-motion: no-preference)`,
+      };
+
+      mm.add(conditions, (context) => {
+        let { reduceMotion, safeToAnimate } = context.conditions;
+
+        reduceMotion = reduceMotionCB.checked;
+        gsap.to('.box', {
+          rotation: reduceMotion ? 0 : 360,
+          // opacity: 0,
+          duration: 2,
         });
-        box.addEventListener('click', context.spinTheBox);
       });
     </script>
   </body>
