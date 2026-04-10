@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Special Props</title>
+  </head>
+  <style>
+    .container {
+      width: 100%;
+      margin: 50px auto;
+      text-align: center;
+    }
+    .slider {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .progress {
+      height: 10px;
+      background-color: #ccc;
+      width: 0%;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <input type="range" min="0" max="100" value="0" class="slider" />
+      <div class="progress"></div>
+      <div class="label">0 deg</div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      const slider = document.querySelector('.slider');
+      const progress = document.querySelector('.progress');
+      const label = document.querySelector('.label');
+
+      slider.addEventListener('input', function () {
+        gsap.to(progress, {
+          width: `${this.value}`,
+          duration: 0.2,
+          onUpdate: function () {
+            label.textContent = `${Math.round(gsap.getProperty(progress, 'width'))}%`;
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
