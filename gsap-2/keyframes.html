@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keyframes</title>
+  </head>
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .box {
+      background-color: green;
+      height: 50px;
+      width: 50px;
+      border-radius: 10px;
+    }
+  </style>
+  <body>
+    <div class="box"></div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+      integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      // gsap.to('.box', {
+      //   keyframes: [
+      //     { x: 100 },
+      //     { y: 100, ease: 'power2.out' },
+      //     {
+      //       x: 0,
+      //       onComplate: () => {
+      //         console.log('Boop');
+      //       },
+      //     },
+      //     { y: 0, ease: 'power2.in' },
+      //   ],
+      //   rotation: 360,
+      //   transformOrigin: 'center',
+      // });
+
+      // gsap.to('.box', {
+      //   keyframes: {
+      //     '25%': { x: 100, y: 0 },
+      //     '50%': { y: 100, x: 100, ease: 'power3.in' },
+      //     '75%': { x: 0, y: 100 },
+      //     '100%': { x: 0, y: 0 },
+      //     easeEach: 'none',
+      //     ease: 'power3.out',
+      //   },
+      //   rotation: 360,
+      //   ease: 'elastic.in',
+      //   duration: 4,
+      // });
+    </script>
+  </body>
+</html>
