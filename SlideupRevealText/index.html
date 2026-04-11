@@ -31,17 +31,13 @@
 
       console.log(mySplitText);
 
-      mySplitText.chars.forEach((elm) => {
-        console.log(elm);
-
-        gsap.from(elm, {
-          y: 100,
-          stagger: 0.05,
-          opacity: 0,
-          duration: 1,
-          scrub: 2,
-          ease: 'back',
-        });
+      gsap.from(mySplitText.chars, {
+        y: 100,
+        stagger: 0.05,
+        opacity: 0,
+        duration: 1,
+        scrub: 2,
+        ease: 'back',
       });
     </script>
   </body>
